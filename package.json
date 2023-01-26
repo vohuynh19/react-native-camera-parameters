@@ -48,9 +48,6 @@
     "url": "https://github.com/vohuynh19/react-native-camera-parameters/issues"
   },
   "homepage": "https://github.com/vohuynh19/react-native-camera-parameters#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "devDependencies": {
     "@evilmartians/lefthook": "^1.2.2",
     "@commitlint/config-conventional": "^17.0.2",
