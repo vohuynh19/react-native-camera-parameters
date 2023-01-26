@@ -30,6 +30,12 @@ type CameraParametersType = {
   DISPLAY_METRICS_Ydp: number;
 };
 
+// Android supported
 export function getCameraParameters(): CameraParametersType {
   return CameraParameters.getConstants();
+}
+
+// IOS test function
+export function multiply(a: number, b: number): number {
+  return a * b;
 }
