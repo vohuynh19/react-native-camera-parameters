@@ -17,6 +17,19 @@ const CameraParameters = NativeModules.CameraParameters
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return CameraParameters.multiply(a, b);
+type CameraParametersType = {
+  FOCAL_LENGTH: number;
+  SENSOR_HEIGHT: number;
+  SENSOR_WIDTH: number;
+  DISPLAY_METRICS_Density: number;
+  DISPLAY_METRICS_DensityDP: number;
+  DISPLAY_METRICS_HeightPixel: number;
+  DISPLAY_METRICS_ScaledDensity: number;
+  DISPLAY_METRICS_WidthPixel: number;
+  DISPLAY_METRICS_Xdp: number;
+  DISPLAY_METRICS_Ydp: number;
+};
+
+export function getCameraParameters(): CameraParametersType {
+  return CameraParameters.getConstants();
 }
