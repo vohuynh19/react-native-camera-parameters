@@ -11,11 +11,11 @@ npm install react-native-camera-parameters
 ## Usage
 
 ```js
-import { multiply } from 'react-native-camera-parameters';
+import { getCameraParameters } from 'react-native-camera-parameters';
 
 // ...
 
-const result = await multiply(3, 7);
+const cameraParameters = getCameraParameters();
 ```
 
 ## Contributing
