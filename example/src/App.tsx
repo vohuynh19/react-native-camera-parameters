@@ -1,11 +1,17 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { getCameraParameters } from 'react-native-camera-parameters';
+import {
+  getCameraParameters,
+  getCameraInfo,
+} from 'react-native-camera-parameters';
 
 export default function App() {
   React.useEffect(() => {
     console.log(getCameraParameters());
+    getCameraInfo((cameraInfo: any) => {
+      console.log('cameraInfo', cameraInfo);
+    });
   }, []);
 
   return (

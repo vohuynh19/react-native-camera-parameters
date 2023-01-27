@@ -39,3 +39,7 @@ export function getCameraParameters(): CameraParametersType {
 export function multiply(a: number, b: number): number {
   return CameraParameters.multiply(a, b);
 }
+
+//
+
+export const getCameraInfo = CameraParameters.getCameraInfo;

@@ -62,6 +62,7 @@ public class CameraParametersModule extends ReactContextBaseJavaModule {
        constants.put("FOCAL_LENGTH",focalLength);
        constants.put("SENSOR_HEIGHT",sensorHeight);
        constants.put("SENSOR_WIDTH",sensorWidth);
+       
        constants.put("DISPLAY_METRICS_Density",displayMetrics.density);
        constants.put("DISPLAY_METRICS_DensityDPI",displayMetrics.densityDpi);
        constants.put("DISPLAY_METRICS_HeightPixels",displayMetrics.heightPixels);

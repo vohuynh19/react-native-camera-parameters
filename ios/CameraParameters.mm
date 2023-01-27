@@ -6,25 +6,22 @@ RCT_EXPORT_MODULE()
 
 // Example method
 // See // https://reactnative.dev/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(double)a withB:(double)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getCameraInfo:(RCTResponseSenderBlock)callback)
 {
-    NSNumber *result = @(a * b);
+  AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+  AVCaptureDeviceFormat *format = [device activeFormat];
+  CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(format.formatDescription);
+  AVFrameRateRange *range = format.videoSupportedFrameRateRanges.firstObject;
+  
+  NSDictionary *cameraInfo = @{
+    @"FOCAL_LENGTH": [NSNumber numberWithDouble:format.videoFieldOfView],
+    @"SENSOR_WIDTH": [NSNumber numberWithDouble:dimensions.width],
+    @"SENSOR_HEIGHT": [NSNumber numberWithDouble:dimensions.height],
+  };
 
-    resolve(result);
+  callback(@[cameraInfo]);
 }
 
-- (NSDictionary *)getConstants {
-    AVCaptureDevice *frontCamera = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
-    NSDictionary *cameraProperties = @{
-                                      @"FOCAL_LENGTH": [NSNumber numberWithFloat:frontCamera.activeFormat.videoFocusMode],
-                                      @"SENSOR_HEIGHT": [NSNumber numberWithFloat:frontCamera.activeFormat.highResolutionStillImageDimensions.height],
-                                      @"SENSOR_WIDTH": [NSNumber numberWithFloat:frontCamera.activeFormat.highResolutionStillImageDimensions.width]
-                                      };
-    return cameraProperties;
-}
 
 // Don't compile this code when we build for the old architecture.
 #ifdef RCT_NEW_ARCH_ENABLED
