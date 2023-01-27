@@ -37,5 +37,5 @@ export function getCameraParameters(): CameraParametersType {
 
 // IOS test function
 export function multiply(a: number, b: number): number {
-  return a * b;
+  return CameraParameters.multiply(a, b);
 }
