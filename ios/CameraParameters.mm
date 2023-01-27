@@ -10,13 +10,14 @@ RCT_EXPORT_METHOD(getCameraInfo:(RCTResponseSenderBlock)callback)
 {
   AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
   AVCaptureDeviceFormat *format = [device activeFormat];
-  CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(format.formatDescription);
-  AVFrameRateRange *range = format.videoSupportedFrameRateRanges.firstObject;
-  
+  float sensorWidthInPx = format.highResolutionStillImageDimensions.width;
+  float FOV = format.videoFieldOfView + 0.00001;
+  float FOVInRadians = FOV * M_PI / 180.0;
+  float focalLengthInPx = (sensorWidthInPx * 0.5) / tan(FOVInRadians / 2);
+
   NSDictionary *cameraInfo = @{
-    @"FOCAL_LENGTH": [NSNumber numberWithDouble:format.videoFieldOfView],
-    @"SENSOR_WIDTH": [NSNumber numberWithDouble:dimensions.width],
-    @"SENSOR_HEIGHT": [NSNumber numberWithDouble:dimensions.height],
+    @"FOCAL_LENGTH": [NSNumber numberWithDouble: focalLengthInPx],
+    @"SENSOR_WIDTH": [NSNumber numberWithDouble: sensorWidthInPx],
   };
 
   callback(@[cameraInfo]);
