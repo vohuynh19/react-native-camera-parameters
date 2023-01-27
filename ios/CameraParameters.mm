@@ -1,4 +1,5 @@
 #import "CameraParameters.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation CameraParameters
 RCT_EXPORT_MODULE()
@@ -13,6 +14,16 @@ RCT_REMAP_METHOD(multiply,
     NSNumber *result = @(a * b);
 
     resolve(result);
+}
+
+- (NSDictionary *)getConstants {
+    AVCaptureDevice *frontCamera = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
+    NSDictionary *cameraProperties = @{
+                                      @"FOCAL_LENGTH": [NSNumber numberWithFloat:frontCamera.activeFormat.videoFocusMode],
+                                      @"SENSOR_HEIGHT": [NSNumber numberWithFloat:frontCamera.activeFormat.highResolutionStillImageDimensions.height],
+                                      @"SENSOR_WIDTH": [NSNumber numberWithFloat:frontCamera.activeFormat.highResolutionStillImageDimensions.width]
+                                      };
+    return cameraProperties;
 }
 
 // Don't compile this code when we build for the old architecture.
